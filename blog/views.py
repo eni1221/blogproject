@@ -15,12 +15,14 @@ def new(request):
 
 
 def list(request):
-    User=get_user_model()
+    blogs=Blog.objects
+    #User=get_user_model()
     
-    context={
-        'user':User
-    }
-    return render(request,'list.html',context)
+   # context={
+    #    'user':User
+   # }
+    return render(request,'list.html',{'blogs':blogs})
+    #return render(request,'list.html',context)
    
 def detail(request, blog_id):
     blog_detail=get_object_or_404(Blog, pk=blog_id)
@@ -33,7 +35,7 @@ def create(request):
     blog.title=request.GET['title']
     blog.body=request.GET['body']
     blog.pub_date=timezone.datetime.now()
-    blog.writer=request.user
+    blog.writer=request.GET['writer']
     blog.save()
     return redirect('/blog/'+str(blog.id))
 

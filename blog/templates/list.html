@@ -1,3 +1,13 @@
-<h1> 블로그ㅇ니다. </h1>
+<h1> 내가 쓴 글 </h1>
 
-<h1> {{user.username}}</h1>
+
+
+{% for blog in blogs.all %} 
+{% if request.user == blog.writer %}
+
+<h1>{{ blog.title }}</h1>
+<p> 작성일자 : {{ blog.pub_date }}</p>
+<p>{{ blog.summary }}</p>
+
+{% endif %}
+{% endfor %}
